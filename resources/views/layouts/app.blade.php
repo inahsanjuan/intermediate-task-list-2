@@ -39,13 +39,15 @@
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
-
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        @if (!Auth::guest())
+                            <li><a href="{{ url('tasks') }}">Create Task</a></li>
+                            <li><a href="{{ url('view')}}">View Task</a></li>
+                        @endif
                         &nbsp;
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->

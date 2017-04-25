@@ -37,6 +37,13 @@ class TaskController extends Controller
     {
         $this->authorize('destroy', $task);
         $task->delete();
-        return redirect('/tasks');
+        return redirect('/view');
+    }
+
+    public function view(Request $request)
+    {
+        return view('tasks.view', [
+            'tasks' => $this->tasks->forUser($request->user()),
+        ]);
     }
 }
