@@ -28,8 +28,17 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required|max:255', ]);
-        $request->user()->tasks()->create(['name' => $request->name, ]);
+        $this->validate($request, [
+            'title' => 'required|max:30',
+            'content' => 'required|max:255',
+            ]);
+
+        auth()->user()->tasks()->create([
+            'title' => $request->title,
+            'content' => $request->content, 
+            ]);
+
+        //$request->session()->flash('message', 'Successfully Added!');
         return redirect('/tasks');
     }
 
@@ -45,5 +54,27 @@ class TaskController extends Controller
         return view('tasks.view', [
             'tasks' => $this->tasks->forUser($request->user()),
         ]);
+    }
+
+    public function status(Request $request, Task $task)
+    {
+        $stat = task::find($task->id);
+        $stat->status = $request->status;
+        $stat->save();
+        return redirect('/view');
+    }
+
+    public function edit(Request $request, Task $task)
+    {
+        return view('tasks.edit')->with('task',$task);
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        $upd =task::find($task);
+        $upd->title = $request->title;
+        $upd->content = $request->content;
+        $upd->save();
+        return redirect('/view');
     }
 }
