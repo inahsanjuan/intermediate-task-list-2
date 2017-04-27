@@ -20,4 +20,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/tasks', 'TaskController@index');
 Route::post('/task', 'TaskController@store');
 Route::get('/view', 'TaskController@view');
+Route::put('/view/{task}', 'TaskController@status');
+Route::put('edit/{task}', 'TaskController@edit');
+Route::put('update/{task}', 'TaskController@update');
 Route::delete('/task/{task}', 'TaskController@destroy');

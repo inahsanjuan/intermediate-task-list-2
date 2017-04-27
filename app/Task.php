@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['title', 'content', 'status'];
 
     /* Get the user that owns the task.*/
     public function user()
